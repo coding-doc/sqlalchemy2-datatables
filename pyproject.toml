@@ -50,12 +50,16 @@ sqlalchemy = "^2.0.0rc2"
 pydantic = "^1.10.4"
 
 [tool.poetry.group.dev.dependencies]
-black = { extras = ["d"], version = "^22.12.0" }
+hatchling = "^1.12.2"
 pre-commit = "^2.21.0"
 pytest = "^7.2.0"
 pytest-cov = "^4.0.0"
+black = { extras = ["d"], version = "^22.12.0" }
+coverage = {extras = ["toml"], version = "^7.0.5"}
+isort = "^5.11.4"
+mypy = "^0.991"
+pyupgrade = "^3.3.1"
 ruff = "^0.0.219"
-hatchling = "^1.12.2"
 
 [build-system]
 requires = ["hatchling"]
@@ -66,6 +70,18 @@ path = "datatables/__init__.py"
 
 [tool.hatch.build.targets.wheel]
 packages = ["datatables"]
+
+[tool.isort]
+profile = "black"
+known_third_party = ["pydantic", "sqlalchemy"]
+
+[tool.mypy]
+strict = true
+
+[[tool.mypy.overrides]]
+module = "tests.*"
+ignore_missing_imports = true
+check_untyped_defs = true
 
 [tool.black]
 line-length = 120
