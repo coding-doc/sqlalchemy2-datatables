@@ -3,25 +3,13 @@ import random
 import re
 from typing import Any
 
-from sqlalchemy import FromClause
-from sqlalchemy import Result
-from sqlalchemy import and_
-from sqlalchemy import asc
-from sqlalchemy import desc
-from sqlalchemy import func
-from sqlalchemy import or_
-from sqlalchemy import select
+from sqlalchemy import FromClause, Result, and_, asc, desc, func, or_, select
 from sqlalchemy.future import Engine
 from sqlalchemy.orm import Session
-from sqlalchemy.sql.elements import ColumnElement
-from sqlalchemy.sql.elements import KeyedColumnElement
-from sqlalchemy.sql.selectable import Select
-from sqlalchemy.sql.selectable import Subquery
+from sqlalchemy.sql.elements import ColumnElement, KeyedColumnElement
+from sqlalchemy.sql.selectable import Select, Subquery
 
-from datatables.base import DTColumn
-from datatables.base import DTColumnOrder
-from datatables.base import DTDataCallbacks
-from datatables.base import DTParams
+from datatables.base import DTColumn, DTColumnOrder, DTDataCallbacks, DTParams
 
 
 class DataTable:
@@ -76,7 +64,8 @@ class DataTable:
 
         for i in range(len(order_params)):
             dt_column_order: DTColumnOrder = DTColumnOrder(
-                column_index=request_params[f"order[{i}][column]"], is_asc=request_params[f"order[{i}][dir]"] == "asc"
+                column_index=request_params[f"order[{i}][column]"],
+                is_asc=request_params[f"order[{i}][dir]"] == "asc",
             )
             order.append(dt_column_order)
         return order
@@ -186,7 +175,7 @@ class DataTable:
         # data: list[dict[str, Any]] = [{k: v for k, v in zip(self.column_names, row)} for row in result.all()]
         data: list[dict[str, Any]] = []
         for row in result.all():
-            result_row: dict[str, Any] = {k: v for k, v in zip(self.column_names, row)}
+            result_row: dict[str, Any] = {k: v for k, v in zip(self.column_names, row, strict=True)}
             if self.callbacks:
                 self.callbacks.run(result_row)
             data.append(result_row)
@@ -205,12 +194,12 @@ class DataTable:
             self.data = self._get_data(session, stmt)
 
     def output_result(self) -> dict[str, Any]:
-        result: dict[str, Any] = dict(
-            start=self.params.start,
-            length=self.params.length,
-            draw=self.params.draw,
-            recordsTotal=self.records_total,
-            recordsFiltered=self.records_filtered,
-            data=self.data,
-        )
+        result: dict[str, Any] = {
+            "start": self.params.start,
+            "length": self.params.length,
+            "draw": self.params.draw,
+            "recordsTotal": self.records_total,
+            "recordsFiltered": self.records_filtered,
+            "data": self.data,
+        }
         return result
