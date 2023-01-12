@@ -1,15 +1,52 @@
 [tool.poetry]
 name = "sqlalchemy2-datatables"
-version = "0.1.0"
-description = "Python Sqlalchemy based server-side processing for jQuery datatables."
+description = "Python Sqlalchemy based serverside processing for jQuery datatables."
 authors = ["R. Hannes Niedner <hniedner@gmail.com>"]
 license = "MIT"
 readme = "README.md"
-packages = [{include = "sqlalchemy2_datatables"}]
+packages = [{include = "datatables"}]
+classifiers = [
+    "Intended Audience :: Information Technology",
+    "Intended Audience :: System Administrators",
+    "Intended Audience :: Developers",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python",
+    "Topic :: Internet",
+    "Topic :: Software Development :: Libraries :: Application Frameworks",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Topic :: Software Development :: Libraries",
+    "Topic :: Software Development",
+    "Typing :: Typed",
+    "Development Status :: 3 - Alpha",
+    "Environment :: Web Environment",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Topic :: Internet :: WWW/HTTP :: HTTP Servers",
+    "Topic :: Internet :: WWW/HTTP",
+    "Topic :: Internet :: WWW/HTTP",
+    "Topic :: Database",
+    "Topic :: Database :: Front-Ends",
+    "Topic :: Internet :: WWW/HTTP :: Indexing/Search",
+]
+version = "0.1.0"
+
+#dynamic = ["version"]
+
+[project]
+name = "sqlalchemy2-datatables"
+description = "Python Sqlalchemy based serverside processing for jQuery datatables."
+dynamic = ["version"]
+[project.urls]
+Homepage = "https://github.com/hniedner/sqlalchemy2-datatables"
+
 
 [tool.poetry.dependencies]
 python = "^3.10"
-sqlalchemy = "^2.0.0rc1"
+sqlalchemy = "^2.0.0rc2"
 pydantic = "^1.10.4"
 
 [tool.poetry.group.dev.dependencies]
@@ -17,8 +54,36 @@ black = { extras = ["d"], version = "^22.12.0" }
 pre-commit = "^2.21.0"
 pytest = "^7.2.0"
 pytest-cov = "^4.0.0"
-
+ruff = "^0.0.219"
+hatchling = "^1.12.2"
 
 [build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.version]
+path = "datatables/__init__.py"
+
+[tool.hatch.build.targets.wheel]
+packages = ["datatables"]
+
+[tool.ruff]
+select = [
+    "E",  # pycodestyle errors
+    "W",  # pycodestyle warnings
+    "F",  # pyflakes
+    "I",  # isort
+    "C",  # flake8-comprehensions
+    "B",  # flake8-bugbear
+]
+ignore = [
+    "E501",  # line too long, handled by black
+    "B008",  # do not perform function calls in argument defaults
+    "C901",  # too complex
+]
+
+[tool.ruff.per-file-ignores]
+"__init__.py" = ["F401"]
+
+[tool.ruff.isort]
+known-third-party = []
