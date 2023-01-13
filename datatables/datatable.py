@@ -49,7 +49,7 @@ class DataTable:
         self.column_names = column_names
         self.engine = engine
         self.callbacks = callbacks
-        logging.info(f"initialize DataTable for {self.table}")
+        logging.info(f'initialize DataTable for {self.table}')
         try:
             self.run(request_params)
         except Exception as exc:
@@ -59,13 +59,13 @@ class DataTable:
     def _parse_order(request_params: dict[str, Any]) -> list[DTColumnOrder]:
         """Parse the order[index][*] parameters"""
         order: list[DTColumnOrder] = []
-        order_pattern = re.compile(r"order\[(.*?)]\[column]")
+        order_pattern = re.compile(r'order\[(.*?)]\[column]')
         order_params: dict[str, Any] = {k: v for k, v in request_params.items() if order_pattern.match(k)}
 
         for i in range(len(order_params)):
             dt_column_order: DTColumnOrder = DTColumnOrder(
-                column_index=request_params[f"order[{i}][column]"],
-                is_asc=request_params[f"order[{i}][dir]"] == "asc",
+                column_index=request_params[f'order[{i}][column]'],
+                is_asc=request_params[f'order[{i}][dir]'] == 'asc',
             )
             order.append(dt_column_order)
         return order
@@ -74,19 +74,19 @@ class DataTable:
     def _parse_columns(request_params: dict[str, Any]) -> list[DTColumn]:
         """Parse the column[index][*] parameters"""
         columns: list[DTColumn] = []
-        data_pattern = re.compile(r"columns\[(.*?)]\[data]")
+        data_pattern = re.compile(r'columns\[(.*?)]\[data]')
         # Extract only the keys of type columns[i][data] from the params
         data_param: dict[str, Any] = {k: v for k, v in request_params.items() if data_pattern.match(k)}
 
         for i in range(len(data_param)):
             column: DTColumn = DTColumn(
                 index=i,
-                data=data_param.get(f"columns[{i}][data]"),
-                name=request_params.get(f"columns[{i}][name]"),
-                searchable=request_params.get(f"columns[{i}][searchable]") == "true",
-                orderable=request_params.get(f"columns[{i}][orderable]") == "true",
-                search_value=request_params.get(f"columns[{i}][search][value]"),
-                search_regex=request_params.get(f"columns[{i}][search][regex]") == "true",
+                data=data_param.get(f'columns[{i}][data]'),
+                name=request_params.get(f'columns[{i}][name]'),
+                searchable=request_params.get(f'columns[{i}][searchable]') == 'true',
+                orderable=request_params.get(f'columns[{i}][orderable]') == 'true',
+                search_value=request_params.get(f'columns[{i}][search][value]'),
+                search_regex=request_params.get(f'columns[{i}][search][regex]') == 'true',
             )
             columns.append(column)
         return columns
@@ -95,15 +95,15 @@ class DataTable:
     def _parse_params(request_params: dict[str, Any]) -> DTParams:
         """Parse the request (query) parameters"""
         params = DTParams()
-        draw: int = int(request_params.get("draw", 0))
+        draw: int = int(request_params.get('draw', 0))
         params.draw = random.randint(1, 1000) if draw == 0 else draw
-        params.start = int(request_params.get("start", 0))
-        params.length = int(request_params.get("length", -1))
-        params.search_value = request_params.get("search[value]", "")
-        params.search_regex = request_params.get("search[regex]") == "true"
+        params.start = int(request_params.get('start', 0))
+        params.length = int(request_params.get('length', -1))
+        params.search_value = request_params.get('search[value]', '')
+        params.search_regex = request_params.get('search[regex]') == 'true'
         params.columns = DataTable._parse_columns(request_params)
         params.order = DataTable._parse_order(request_params)
-        logging.info(f"params: {params}")
+        logging.info(f'params: {params}')
         return params
 
     def _get_records_total(self, session: Session) -> int:
@@ -138,7 +138,7 @@ class DataTable:
                     regex: str = self.params.search_value
                     col_element = column.regexp_match(regex)
                 else:
-                    col_element = column.like(f"%{self.params.search_value}%")
+                    col_element = column.like(f'%{self.params.search_value}%')
                 expressions.append(col_element)
         return stmt.where(or_(*expressions)) if len(expressions) > 0 else stmt
 
@@ -151,7 +151,7 @@ class DataTable:
                 if self.params.search_regex:
                     col_element = column.regexp_match(dt_col.search_value)
                 else:
-                    col_element = column.like(f"%{dt_col.search_value}%")
+                    col_element = column.like(f'%{dt_col.search_value}%')
                 expressions.append(col_element)
         return stmt.where(and_(*expressions)) if len(expressions) > 0 else stmt
 
@@ -169,7 +169,7 @@ class DataTable:
         """Get the data from the database"""
         # adding pagination by page (offset/start) and page size (limit/length)
         stmt = stmt.offset(self.params.start).limit(self.params.length)
-        logging.info(f"stmt: {stmt.compile()}")
+        logging.info(f'stmt: {stmt.compile()}')
         result: Result[Any] = session.execute(stmt)
         # create a dictionary that maps the result of the query to a list
         # data: list[dict[str, Any]] = [{k: v for k, v in zip(self.column_names, row)} for row in result.all()]
@@ -195,11 +195,11 @@ class DataTable:
 
     def output_result(self) -> dict[str, Any]:
         result: dict[str, Any] = {
-            "start": self.params.start,
-            "length": self.params.length,
-            "draw": self.params.draw,
-            "recordsTotal": self.records_total,
-            "recordsFiltered": self.records_filtered,
-            "data": self.data,
+            'start': self.params.start,
+            'length': self.params.length,
+            'draw': self.params.draw,
+            'recordsTotal': self.records_total,
+            'recordsFiltered': self.records_filtered,
+            'data': self.data,
         }
         return result

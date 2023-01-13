@@ -4,10 +4,10 @@ from pydantic import BaseModel
 
 
 class DTKey:
-    ROW_ID: str = "DT_RowId"
-    ROW_CLASS: str = "DT_RowClass"
-    ROW_DATA: str = "DT_RowData"
-    ROW_ATTR: str = "DT_RowAttr"
+    ROW_ID: str = 'DT_RowId'
+    ROW_CLASS: str = 'DT_RowClass'
+    ROW_DATA: str = 'DT_RowData'
+    ROW_ATTR: str = 'DT_RowAttr'
 
 
 class DTDataCallbacks:
@@ -100,11 +100,11 @@ class DTColumn(BaseModel):
     """
 
     index: int = -1
-    data: str = ""
-    name: str = ""
+    data: str = ''
+    name: str = ''
     searchable: bool = True
     orderable: bool = True
-    search_value: str = "None"
+    search_value: str = 'None'
     search_regex: bool = False
 
 
@@ -125,7 +125,7 @@ class DTParams(BaseModel):
     draw: int = 0
     start: int = 0
     length: int = 10
-    search_value: str = ""
+    search_value: str = ''
     search_regex: bool = False
     columns: list[DTColumn] = []
     order: list[DTColumnOrder] = []
