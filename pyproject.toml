@@ -40,9 +40,9 @@ version = "0.1.0"
 name = "sqlalchemy2-datatables"
 description = "Python Sqlalchemy based serverside processing for jQuery datatables."
 dynamic = ["version"]
-[project.urls]
-Homepage = "https://github.com/hniedner/sqlalchemy2-datatables"
 
+[project.urls]
+Homepage = "https://github.com/coding-doc/sqlalchemy2-datatables"
 
 [tool.poetry.dependencies]
 python = "^3.10"
@@ -83,9 +83,12 @@ module = "tests.*"
 ignore_missing_imports = true
 check_untyped_defs = true
 
+
 [tool.black]
+color = true
 line-length = 120
 target-version = ['py310']
+skip-string-normalization = true
 include = '\.pyi?$'
 exclude = '''
 (
@@ -107,6 +110,9 @@ exclude = '''
 '''
 
 [tool.ruff]
+line-length = 120
+extend-select = ['Q']
+flake8-quotes = {inline-quotes = 'single', multiline-quotes = 'double'}
 select = [
     "E",  # pycodestyle errors
     "W",  # pycodestyle warnings
@@ -125,4 +131,10 @@ ignore = [
 "__init__.py" = ["F401"]
 
 [tool.ruff.isort]
+line_length = 120
+known_first_party = 'datatables'
+multi_line_output = 3
+include_trailing_comma = true
+force_grid_wrap = 0
+combine_as_imports = true
 known-third-party = []
