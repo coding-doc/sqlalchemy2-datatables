@@ -104,7 +104,7 @@ class DTColumn(BaseModel):
     name: str = ''
     searchable: bool = True
     orderable: bool = True
-    search_value: str = 'None'
+    search_value: str = ''
     search_regex: bool = False
 
 

@@ -17,9 +17,11 @@ class DataTable:
     Sqlalchemy ORM-compatible data table class.
     See https://www.datatables.net/manual/server-side#API
 
+    :param request_params: dict[str, Any] - the  query parameters sent via the jQuery datatables ajaxt request
     :param engine: Engine -  sqlalchemy database engine
     :param table: table: FromClause - sqlalchemy FromClause
     :param column_names: list[str] - table column names to display in the datatable, used for projection in sql
+    :param callbacks: DTDataCallbacks  - callback that populate  DT_ROW_ID, DT_ROW_CLASS, DT_ROW_ATTR, DT_ROW_DATA
     :attr params: DTParams - parsed request parameters to use for result filtering, projection, sorting and paging
     :attr recordsTotal: int -  the total number of records available in this model/table
     :attr recordsFiltered: int - the number of records for the filtered result (before pagination)
@@ -158,6 +160,8 @@ class DataTable:
     def _built_select_statement(self) -> Select[Any]:
         stmt: Select[Any] = select().select_from(self.table)
         for name in self.column_names:
+            if name not in self.table.columns:
+                raise ValueError(f'No column {name} in {self.table}')
             stmt = stmt.add_columns(self.table.columns[name])
         if self.params.search_value:
             stmt = self._add_global_search_criterion(stmt)
@@ -200,6 +204,9 @@ class DataTable:
             'draw': self.params.draw,
             'recordsTotal': self.records_total,
             'recordsFiltered': self.records_filtered,
-            'data': self.data,
         }
+        if self.data:
+            result['data'] = self.data
+        if self.error:
+            result['error'] = self.error
         return result
