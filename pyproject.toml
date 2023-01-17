@@ -1,10 +1,11 @@
 [tool.poetry]
+version = "0.4.0"
 name = "sqlalchemy2-datatables"
 description = "Python Sqlalchemy based serverside processing for jQuery datatables."
 authors = ["R. Hannes Niedner <hniedner@gmail.com>"]
 license = "MIT"
 readme = "README.md"
-packages = [{include = "datatables"}]
+packages = [{include = "datatables", from = "src"}]
 classifiers = [
     "Intended Audience :: Information Technology",
     "Intended Audience :: System Administrators",
@@ -32,7 +33,6 @@ classifiers = [
     "Topic :: Database :: Front-Ends",
     "Topic :: Internet :: WWW/HTTP :: Indexing/Search",
 ]
-version = "0.3.0"
 
 #dynamic = ["version"]
 
@@ -60,20 +60,57 @@ isort = "^5.11.4"
 mypy = "^0.991"
 pyupgrade = "^3.3.1"
 ruff = "^0.0.219"
+autoflake = "^2.0.0"
 
 [build-system]
 requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [tool.hatch.version]
-path = "datatables/__init__.py"
+path = "src/datatables/__init__.py"
 
 [tool.hatch.build.targets.wheel]
-packages = ["datatables"]
+packages = ["src/datatables"]
 
 [tool.isort]
 profile = "black"
+known_first_party = 'datatables'
 known_third_party = ["pydantic", "sqlalchemy"]
+line_length = 120
+multi_line_output = 3
+include_trailing_comma = true
+force_single_line = true
+force_grid_wrap = 0
+combine_as_imports = false
+
+[tool.poetry-version-plugin]
+source = "init"
+
+[tool.autoflake]
+# return error code if changes are needed
+check = false
+# make changes to files instead of printing diffs
+in-place = true
+# drill down directories recursively
+recursive = true
+# exclude file/directory names that match these comma-separated globs
+exclude = "<GLOBS>"
+# by default, only unused standard library imports are removed; specify a comma-separated list of additional
+# modules/packages
+#imports = "<IMPORTS>"
+# expand wildcard star imports with undefined names; this only triggers if there is only one star import in
+# the file; this is skipped if there are any uses of `__all__` or `del` in the file
+expand-star-imports = true
+# remove all unused imports (not just those from the standard library)
+remove-all-unused-imports = true
+# exclude __init__.py when removing unused imports
+ignore-init-module-imports = true
+# remove all duplicate keys in objects
+remove-duplicate-keys = true
+# remove unused variables
+remove-unused-variables = true
+# print more verbose logs (larger numbers are more verbose)
+#verbose = 1
 
 [tool.mypy]
 strict = true
@@ -117,7 +154,7 @@ select = [
     "E",  # pycodestyle errors
     "W",  # pycodestyle warnings
     "F",  # pyflakes
-    "I",  # isort
+#    "I",  # isort
     "C",  # flake8-comprehensions
     "B",  # flake8-bugbear
 ]
@@ -129,12 +166,3 @@ ignore = [
 
 [tool.ruff.per-file-ignores]
 "__init__.py" = ["F401"]
-
-[isort]
-line_length = 120
-known_first_party = 'datatables'
-multi_line_output = 3
-include_trailing_comma = true
-force_grid_wrap = 0
-combine_as_imports = true
-known-third-party = []

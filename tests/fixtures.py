@@ -3,10 +3,12 @@ from typing import Any
 import pytest
 from sqlalchemy import FromClause
 from sqlalchemy.exc import SQLAlchemyError
-from sqlalchemy.future import Engine, create_engine
+from sqlalchemy.future import Engine
+from sqlalchemy.future import create_engine
 from sqlalchemy.orm import Session
 
-from .models import Base, User
+from tests.models import Base
+from tests.models import User
 
 
 def create_query_params(

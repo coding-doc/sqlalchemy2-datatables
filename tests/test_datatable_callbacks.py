@@ -1,13 +1,17 @@
 from typing import Any
 
 import pytest
-from sqlalchemy import Engine, FromClause
+from sqlalchemy import Engine
+from sqlalchemy.sql.selectable import FromClause
 
 from datatables import DTDataCallbacks
 from datatables.base import DTKey
 from datatables.datatable import DataTable
-
-from .fixtures import column_names, create_query_params, engine, setup_db, table
+from tests.fixtures import column_names
+from tests.fixtures import create_query_params
+from tests.fixtures import engine
+from tests.fixtures import setup_db
+from tests.fixtures import table
 
 
 @pytest.fixture(scope='function', autouse=True)
@@ -61,3 +65,7 @@ def test_datatable_callbacks(
     assert row[DTKey.ROW_CLASS] == row['color']
     assert row[DTKey.ROW_ATTR] == {'attribute': row['username'], 'attribute2': row['color']}
     assert row[DTKey.ROW_DATA] == {'username': {'url': f'/actions/user/details/{row["username"]}'}}  # noqa: Q001
+
+
+if __name__ == '__main__':
+    pytest.main()

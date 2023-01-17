@@ -1,8 +1,10 @@
-from typing import Any, Callable
+from typing import Any
+from typing import Callable
 
 import pytest
 
-from datatables.base import DTDataCallbacks, DTKey
+from datatables.base import DTDataCallbacks
+from datatables.base import DTKey
 
 
 @pytest.fixture(scope='function')

@@ -1,11 +1,15 @@
 from typing import Any
 
 import pytest
-from sqlalchemy import Engine, FromClause
+from sqlalchemy import Engine
+from sqlalchemy import FromClause
 
 from datatables.datatable import DataTable
-
-from .fixtures import column_names, create_query_params, engine, setup_db, table
+from tests.fixtures import column_names
+from tests.fixtures import create_query_params
+from tests.fixtures import engine
+from tests.fixtures import setup_db
+from tests.fixtures import table
 
 
 @pytest.fixture(scope='function', autouse=True)
