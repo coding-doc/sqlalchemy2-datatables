@@ -214,9 +214,8 @@ class DataTable:
             'draw': self.params.draw,
             'recordsTotal': self.records_total,
             'recordsFiltered': self.records_filtered,
+            'data': self.data if self.data else [],
         }
-        if self.data:
-            result['data'] = self.data
         if self.error:
             result['error'] = self.error
         return result
