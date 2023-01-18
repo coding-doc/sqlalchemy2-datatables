@@ -13,7 +13,7 @@ sqlalchemy2-datatables is a framework agnostic library providing an SQLAlchemy i
 jQuery DataTables >= 1.10, and helping you manage server side requests in your application.
 
 ### Inspiration
-This project was inspired by [sqlalchemyw-datatables](https://github.com/Pegase745/sqlalchemy-datatables)
+This project was inspired by [sqlalchemy-datatables](https://github.com/Pegase745/sqlalchemy-datatables)
 developed by Michel Nemnom aka [Pegase745](https://github.com/Pegase745).
 
 ### Motivation
@@ -54,18 +54,22 @@ def get_datatable_result(
     :return dict with DataTable output for the jQuery datatables in the frontend view
     """
     datatable: DataTable = DataTable(
-        request_params=params, table=table, column_names=column_names, engine=engine, callbacks=callbacks
+        request_params=params,
+        table=table,
+        column_names=column_names,
+        engine=engine,
+        callbacks=callbacks
     )
     return datatable.output_result()
 ```
-this will produce the dictionary that can be serialized and returned to jQuery datatables.
+The output dictionary that can be serialized and returned to jQuery datatables.
 ```python
 {
     "start": 0,
     "length": 5,
     "draw": 1,
-    "recordsTotal": 1341,
-    "recordsFiltered": 1341,
+    "recordsTotal": 1000,
+    "recordsFiltered": 1000,
     "data": [
         {
             "id": 1,
