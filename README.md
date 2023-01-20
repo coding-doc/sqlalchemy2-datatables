@@ -2,7 +2,9 @@
 
 [![versions](https://img.shields.io/pypi/pyversions/sqlalchemy2-datatables.svg)](https://github.com/hniedner/sqlalchemy2-datatables)
 [![license](https://img.shields.io/github/license/pydantic/pydantic.svg)](https://github.com/pydantic/pydantic/blob/main/LICENSE)
-[![Python package](https://github.com/coding-doc/sqlalchemy2-datatables/actions/workflows/python-package.yml/badge.svg?branch=main)](https://github.com/coding-doc/sqlalchemy2-datatables/actions/workflows/python-package.yml)
+[![tests](https://github.com/coding-doc/sqlalchemy2-datatables/actions/workflows/python-package.yml/badge.svg?branch=main)](https://github.com/coding-doc/sqlalchemy2-datatables/actions/workflows/python-package.yml)
+![badge](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/coding-doc/e13951fb715ab39a15dfb6c504284537/raw/coverage.json)
+
 ---
 
 **Source Code**: [https://github.com/coding-doc/sqlalchemy2-datatables](https://github.com/coding-doc/sqlalchemy2-datatables)
