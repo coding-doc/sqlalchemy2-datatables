@@ -41,6 +41,12 @@ classifiers = [
 Homepage = "https://github.com/coding-doc/sqlalchemy2-datatables"
 Source = "https://github.com/coding-doc/sqlalchemy2-datatables"
 
+[tool.poetry]
+version = "0.5.4"
+name = "sqlalchemy2-datatables"
+description = "Python Sqlalchemy 2.0 based serverside processing for jQuery datatables."
+authors = ["R. Hannes Niedner <coding.doctor@icloud.com>"]
+
 [tool.poetry.dependencies]
 python = "^3.10"
 sqlalchemy = "^2.0.0rc3"
