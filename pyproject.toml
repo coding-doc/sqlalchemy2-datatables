@@ -1,11 +1,8 @@
-[build-system]
-requires = ["hatchling"]
-build-backend = "hatchling.build"
-
-[project]
+[tool.poetry]
+version = "0.5.4"
 name = "sqlalchemy2-datatables"
 description = "Python Sqlalchemy 2.0 based serverside processing for jQuery datatables."
-authors = ["R. Hannes Niedner <coding.doctor@icloud.com>"]
+authors = ["R. Hannes Niedner <hniedner@gmail.com>"]
 license = "MIT"
 readme = "README.md"
 packages = [{include = "datatables", from = "src"}]
@@ -37,26 +34,22 @@ classifiers = [
     "Topic :: Internet :: WWW/HTTP :: Indexing/Search",
 ]
 
+#dynamic = ["version"]
+
+[project]
+name = "sqlalchemy2-datatables"
+description = "Python Sqlalchemy based serverside processing for jQuery datatables."
+dynamic = ["version"]
+
 [project.urls]
 Homepage = "https://github.com/coding-doc/sqlalchemy2-datatables"
-Source = "https://github.com/coding-doc/sqlalchemy2-datatables"
-
-[tool.poetry]
-version = "0.5.4"
-name = "sqlalchemy2-datatables"
-description = "Python Sqlalchemy 2.0 based serverside processing for jQuery datatables."
-authors = ["R. Hannes Niedner <coding.doctor@icloud.com>"]
-license = "MIT"
-readme = "README.md"
-packages = [{include = "datatables", from = "src"}]
 
 [tool.poetry.dependencies]
 python = "^3.10"
-sqlalchemy = "^2.0.0rc3"
+sqlalchemy = "^2.0.0rc2"
 pydantic = "^1.10.4"
 
 [tool.poetry.group.dev.dependencies]
-poetry-dynamic-versioning = "^0.21.3"
 hatchling = "^1.12.2"
 pre-commit = "^2.21.0"
 pytest = "^7.2.0"
@@ -69,8 +62,9 @@ pyupgrade = "^3.3.1"
 ruff = "^0.0.219"
 autoflake = "^2.0.0"
 
-[tool.poetry-dynamic-versioning]
-enable = true
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
 
 [tool.hatch.version]
 path = "src/datatables/__init__.py"
@@ -160,7 +154,7 @@ select = [
     "E",  # pycodestyle errors
     "W",  # pycodestyle warnings
     "F",  # pyflakes
-#    "I",  # isort
+    #    "I",  # isort
     "C",  # flake8-comprehensions
     "B",  # flake8-bugbear
 ]
