@@ -1,5 +1,5 @@
 [tool.poetry]
-version = "0.6.0"
+version = "0.6.1"
 name = "sqlalchemy2-datatables"
 description = "Python Sqlalchemy 2.0 based serverside processing for jQuery datatables."
 authors = ["R. Hannes Niedner <hniedner@gmail.com>"]
