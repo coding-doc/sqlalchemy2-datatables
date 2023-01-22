@@ -30,13 +30,5 @@ def test_dt_column_no_param() -> None:
     assert column.search_regex is False
 
 
-def test_dt_column_string_args() -> None:
-    column: DTColumn = DTColumn(index='5', searchable='false', orderable='false', search_regex='true')
-    assert column.index == 5
-    assert column.searchable is False
-    assert column.orderable is False
-    assert column.search_regex is True
-
-
 if __name__ == '__main__':
     pytest.main()

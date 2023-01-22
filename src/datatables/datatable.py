@@ -76,7 +76,7 @@ class DataTable:
 
         for i in range(len(order_params)):
             dt_column_order: DTColumnOrder = DTColumnOrder(
-                column_index=request_params[f'order[{i}][column]'],
+                column_index=int(request_params[f'order[{i}][column]']),
                 is_asc=request_params[f'order[{i}][dir]'] == 'asc',
             )
             order.append(dt_column_order)
@@ -106,15 +106,15 @@ class DataTable:
     @staticmethod
     def _parse_params(request_params: dict[str, Any]) -> DTParams:
         """Parse the request (query) parameters"""
-        params = DTParams()
-        draw: int = int(request_params.get('draw', 0))
-        params.draw = random.randint(1, 1000) if draw == 0 else draw
-        params.start = int(request_params.get('start', 0))
-        params.length = int(request_params.get('length', -1))
-        params.search_value = request_params.get('search[value]', '')
-        params.search_regex = request_params.get('search[regex]') == 'true'
-        params.columns = DataTable._parse_columns(request_params)
-        params.order = DataTable._parse_order(request_params)
+        params = DTParams(
+            draw=int(request_params.get('draw', random.randint(1, 1000))),
+            start=int(request_params.get('start', 0)),
+            length=int(request_params.get('length', -1)),
+            search_value=request_params.get('search[value]', ''),
+            search_regex=request_params.get('search[regex]') == 'true',
+            columns=DataTable._parse_columns(request_params),
+            order=DataTable._parse_order(request_params),
+        )
         logging.info(f'params: {params}')
         return params
 

@@ -12,8 +12,8 @@ def test_dt_column_order_new() -> None:
 
 
 def test_dt_column_order_no_param() -> None:
-    with pytest.raises(ValueError):
-        DTColumnOrder()
+    with pytest.raises(TypeError):
+        DTColumnOrder()  # type: ignore
 
 
 def test_dt_column_order_default_order() -> None:

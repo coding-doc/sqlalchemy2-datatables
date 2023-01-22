@@ -1,7 +1,7 @@
+from dataclasses import dataclass
+from dataclasses import field
 from typing import Any
 from typing import Callable
-
-from pydantic import BaseModel
 
 
 class DTKey:
@@ -73,7 +73,8 @@ class DTDataCallbacks:
             row[DTKey.ROW_ATTR] = self.get_row_attr(row)
 
 
-class DTColumnOrder(BaseModel):
+@dataclass(frozen=True)
+class DTColumnOrder:
     """
     Class holding the parameters for one order criterion from the datatable ajax request
     @see https://www.datatables.net/manual/server-side#Sent-parameters
@@ -86,7 +87,8 @@ class DTColumnOrder(BaseModel):
     is_asc: bool = True
 
 
-class DTColumn(BaseModel):
+@dataclass(frozen=True)
+class DTColumn:
     """
     Class holding the parameters for one column from the datatable ajax request
     @see https://www.datatables.net/manual/server-side#Sent-parameters
@@ -109,7 +111,8 @@ class DTColumn(BaseModel):
     search_regex: bool = False
 
 
-class DTParams(BaseModel):
+@dataclass(frozen=True)
+class DTParams:
     """
     Class holding the query parameters from the datatable ajax request
     @see https://www.datatables.net/manual/server-side#Sent-parameters
@@ -128,5 +131,5 @@ class DTParams(BaseModel):
     length: int = 10
     search_value: str = ''
     search_regex: bool = False
-    columns: list[DTColumn] = []
-    order: list[DTColumnOrder] = []
+    columns: list[DTColumn] = field(default_factory=list)
+    order: list[DTColumnOrder] = field(default_factory=list)
