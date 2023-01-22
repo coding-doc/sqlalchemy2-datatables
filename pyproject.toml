@@ -46,6 +46,9 @@ version = "0.5.4"
 name = "sqlalchemy2-datatables"
 description = "Python Sqlalchemy 2.0 based serverside processing for jQuery datatables."
 authors = ["R. Hannes Niedner <coding.doctor@icloud.com>"]
+license = "MIT"
+readme = "README.md"
+packages = [{include = "datatables", from = "src"}]
 
 [tool.poetry.dependencies]
 python = "^3.10"
