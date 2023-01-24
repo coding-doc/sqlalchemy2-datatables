@@ -46,10 +46,6 @@ dynamic = ["version"]
 [project.urls]
 Homepage = "https://github.com/coding-doc/sqlalchemy2-datatables"
 
-[tool.poetry.dependencies]
-python = "^3.10"
-sqlalchemy = "^2.0.0rc3"
-
 [project.optional-dependencies]
 dev = [
 "hatchling~=1.12.2",
