@@ -1,11 +1,19 @@
-[tool.poetry]
-version = "0.6.1"
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
 name = "sqlalchemy2-datatables"
 description = "Python Sqlalchemy 2.0 based serverside processing for jQuery datatables."
-authors = ["R. Hannes Niedner <hniedner@gmail.com>"]
+authors = [
+    {name = "R. Hannes Niedner", email = "hniedner@gmail.com"}
+]
+requires-python = ">=3.10"
 license = "MIT"
 readme = "README.md"
-packages = [{include = "datatables", from = "src"}]
+dependencies = [
+    "sqlalchemy~=2.0.0rc3"
+]
 classifiers = [
     "Intended Audience :: Information Technology",
     "Intended Audience :: System Administrators",
@@ -33,12 +41,6 @@ classifiers = [
     "Topic :: Database :: Front-Ends",
     "Topic :: Internet :: WWW/HTTP :: Indexing/Search",
 ]
-
-#dynamic = ["version"]
-
-[project]
-name = "sqlalchemy2-datatables"
-description = "Python Sqlalchemy based serverside processing for jQuery datatables."
 dynamic = ["version"]
 
 [project.urls]
@@ -48,22 +50,20 @@ Homepage = "https://github.com/coding-doc/sqlalchemy2-datatables"
 python = "^3.10"
 sqlalchemy = "^2.0.0rc3"
 
-[tool.poetry.group.dev.dependencies]
-hatchling = "^1.12.2"
-pre-commit = "^2.21.0"
-pytest = "^7.2.0"
-pytest-cov = "^4.0.0"
-black = { extras = ["d"], version = "^22.12.0" }
-coverage = {extras = ["toml"], version = "^7.0.5"}
-isort = "^5.11.4"
-mypy = "^0.991"
-pyupgrade = "^3.3.1"
-ruff = "^0.0.219"
-autoflake = "^2.0.0"
-
-[build-system]
-requires = ["hatchling"]
-build-backend = "hatchling.build"
+[project.optional-dependencies]
+dev = [
+"hatchling~=1.12.2",
+"pre-commit~=2.21.0",
+"pytest~=7.2.0",
+"pytest-cov~=4.0.0",
+"black[d]~=22.12.0",
+"coverage[toml]~=7.0.5",
+"isort~=5.11.4",
+"mypy~=0.991",
+"pyupgrade~=3.3.1",
+"ruff~=0.0.219",
+"autoflake~=2.0.0"
+]
 
 [tool.hatch.version]
 path = "src/datatables/__init__.py"
@@ -82,8 +82,6 @@ force_single_line = true
 force_grid_wrap = 0
 combine_as_imports = false
 
-[tool.poetry-version-plugin]
-source = "init"
 
 [tool.autoflake]
 # return error code if changes are needed

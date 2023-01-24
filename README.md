@@ -5,11 +5,6 @@
 [![badge](https://github.com/coding-doc/sqlalchemy2-datatables/actions/workflows/tests.yml/badge.svg?branch=main)](https://github.com/coding-doc/sqlalchemy2-datatables/actions/workflows/tests.yml)
 ![badge](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/coding-doc/e13951fb715ab39a15dfb6c504284537/raw/coverage.json)
 
----
-
-**Source Code**: [https://github.com/coding-doc/sqlalchemy2-datatables](https://github.com/coding-doc/sqlalchemy2-datatables)
-
----
 ### Summary
 sqlalchemy2-datatables is a framework agnostic library providing an SQLAlchemy integration of
 jQuery DataTables >= 1.10, and helping you manage server side requests in your application.
