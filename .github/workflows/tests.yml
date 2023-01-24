@@ -35,7 +35,7 @@ jobs:
       run: |
         COVERAGE=$(pytest --cov=src)
         echo $COVERAGE
-        echo "COVERAGE="$($COVERAGE | grep -e "^TOTAL" | grep -oE "[0-9]{2,3}%" | grep -oE "[0-9]{2,3}") >> $GITHUB_ENV
+        echo "COVERAGE="$(echo $COVERAGE | grep -e "^TOTAL" | grep -oE "[0-9]{2,3}%" | grep -oE "[0-9]{2,3}") >> $GITHUB_ENV
 
     - name: Create Awesome Badge
       uses: schneegans/dynamic-badges-action@v1.6.0
